@@ -1,0 +1,76 @@
+#!/usr/bin/python3
+
+from string import ascii_letters
+
+# Linked list for hashtable
+# Should switch to balanced binary tree for future cause it's not good
+class Node:
+    def __init__(self, word, defnlist):
+        self.next = None
+        self.word = word
+        self.defn = defnlist
+    def add(self, word, defnlist):
+        if self.next == None:
+            self.next = Node(word, defnlist)
+        else:
+            self.next.add(word, defnlist)
+
+# Called with x = Hashtable(hashsize)
+# Uses x.lookup("Salmon") to find list of defs
+# Installs with x.lookup("Salmon", "Def")
+class Hashtable:
+    def __init__(self, hashsize):
+        self.hashsize = hashsize
+        self.storage = [Node("", [])] * hashsize
+    def lookup(self, word):
+        return self.storage[hash(word) % self.hashsize].defn
+    def install(self, word, defn):
+        if self.storage[hash(word) % self.hashsize].word == "":
+            self.storage[hash(word) % self.hashsize] = Node(word, [defn])
+        elif self.storage[hash(word) % self.hashsize].word != word:
+            self.storage[hash(word) % self.hashsize].add(word, [defn])
+        else:
+            self.storage[hash(word) % self.hashsize].defn.append(defn)
+
+# Adds all the words in file to a hash and returns it
+# Currently ignores words that aren't 100% letters
+def add_words(file):
+    defnext = False # If true it needs to check for def next
+    hashtable = Hashtable(500000)
+    txtfile = open(file, 'r')
+    for i in range(348):
+        _ = txtfile.readline()
+
+    for line in txtfile:
+        if '<h1>' in line:
+            defnext = True
+            word = line.split("<h1>")[1].split("</h1>")[0]
+            for c in word:
+                if not c in ascii_letters:
+                    defnext = False
+                    break
+        elif defnext and '<def>' in line and not '<er>' in line:
+            defn = remove_tags(line.split("<def>")[1].split("</def>")[0])
+            hashtable.install(word, defn)
+            defnext = False
+
+    txtfile.close()
+
+    return hashtable
+
+# Removes any html tags but not the best yet
+def remove_tags(defined):
+    final = ""
+    intag = False
+    for c in defined:
+        if c == '<':
+            intag = True
+        elif c == '>':
+            intag = False
+        elif not intag:
+            final += c
+
+    return final
+
+if __name__ == '__main__':
+    hashtable = add_words('dict.html')
