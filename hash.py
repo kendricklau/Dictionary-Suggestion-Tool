@@ -44,7 +44,7 @@ def add_words(file):
     for line in txtfile:
         if '<h1>' in line:
             defnext = True
-            word = line.split("<h1>")[1].split("</h1>")[0]
+            word = line.split("<h1>")[1].split("</h1>")[0].lower()
             for c in word:
                 if not c in ascii_letters:
                     defnext = False

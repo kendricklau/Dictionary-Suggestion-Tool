@@ -1,41 +1,41 @@
-#!/usr/bin/python3
-
-import sys
+from PyQt4 import QtGui #sudo apt-get install python3-pyqt4
 from PyQt4.QtCore import SIGNAL
-from PyQt4.QtGui import QDialog, QApplication, QPushButton, QLineEdit, QFormLayout
- 
-class Form(QDialog):
-    def __init__(self, parent=None):
-        super(Form, self).__init__(parent)
- 
-        self.lineEdit = QLineEdit()
-        self.lineEdit.setObjectName("host")
-        self.lineEdit.setText("")
-		
-		
+import sys
+import gui_designer #Includes all widgets of GUI
+import hash
 
-        self.pushButton = QPushButton()
-        self.pushButton.setObjectName("btn")
-        self.pushButton.setText("Submit") 
-
-		 
-        layout = QFormLayout()
-        layout.addWidget(self.lineEdit)
-        layout.addWidget(self.pushButton)
- 
-        self.setLayout(layout)
-        self.connect(self.pushButton, SIGNAL("clicked()"),self.button_click)
-        self.setWindowTitle("ECE368 Dictionary Project")
+#Designer class with all GUI functions
+class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
+	def __init__(self, parent = None):
+		super(DictionaryApp, self).__init__(parent)
+		self.setupUi(self)
+		self.connect(self.searchBtn, SIGNAL("clicked()"), self.getSearch)
+		self.setWindowTitle("ECE368 Dictionary")
+		
+		self.hashtable = hash.add_words('dict.html')
+	
+	def getSearch(self):
+		text = self.lineEdit.text()
+		self.textBrowser.setText("")
+		deflist = self.hashtable.lookup(text.lower())
 		
 
-    def button_click(self):
-        qstr = self.lineEdit.text()
-        print qstr
-	self.lineEdit.setText("")
- 
- 
-app = QApplication(sys.argv)
-form = Form()
-form.resize(500, 300)
-form.show()
-app.exec_()
+		if deflist is []:
+			deftext = "Could not find entry!\n"
+		else:
+			deftext = '\n'.join(deflist)
+			deffull = text.title() + '\n\n' + deftext
+		
+		self.textBrowser.setText(deffull)
+		self.lineEdit.setText("")
+
+
+
+def main():
+	app = QtGui.QApplication(sys.argv)
+	form = DictionaryApp()
+	form.show()
+	app.exec_()
+
+if __name__ == '__main__':
+	main()
