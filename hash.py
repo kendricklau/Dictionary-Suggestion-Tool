@@ -23,7 +23,15 @@ class Hashtable:
         self.hashsize = hashsize
         self.storage = [Node("", [])] * hashsize
     def lookup(self, word):
-        return self.storage[hash(word) % self.hashsize].defn
+        deflist = []
+        node = self.storage[hash(word) % self.hashsize]
+        while node != None and node.word != word:
+            node = node.next
+        if node == None:
+            return []
+        else:
+            return node.defn
+        #return self.storage[hash(word) % self.hashsize].defn
     def install(self, word, defn):
         if self.storage[hash(word) % self.hashsize].word == "":
             self.storage[hash(word) % self.hashsize] = Node(word, [defn])
@@ -49,7 +57,8 @@ def add_words(file):
                 if not c in ascii_letters:
                     defnext = False
                     break
-        elif defnext and '<def>' in line and not '<er>' in line:
+        #elif defnext and '<def>' in line and not '<er>' in line:
+        elif defnext and '<def>' in line:
             defn = remove_tags(line.split("<def>")[1].split("</def>")[0])
             hashtable.install(word, defn)
             defnext = False
@@ -69,8 +78,11 @@ def remove_tags(defined):
             intag = False
         elif not intag:
             final += c
-
-    return final
+	#change
+    if "<er>" in defined:
+        return defined
+    else:
+        return final
 
 if __name__ == '__main__':
     hashtable = add_words('dict.html')

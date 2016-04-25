@@ -20,8 +20,8 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		deflist = self.hashtable.lookup(text.lower())
 		
 
-		if deflist is []:
-			deftext = "Could not find entry!\n"
+		if len(deflist) == 0:
+			deffull = "Could not find entry!\n"
 		else:
 			deftext = '\n'.join(deflist)
 			deffull = text.title() + '\n\n' + deftext
