@@ -4,6 +4,7 @@ class Complete:
         self.words = words
         self.out = []
     def fin(self, input):
+        self.out = []
         count = 0
         if input:
             for a in self.words:
