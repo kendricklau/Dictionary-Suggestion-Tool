@@ -1,27 +1,54 @@
-import csv
 class Complete:
     def __init__(self, words):
         self.words = words
-        self.out = []
-    def fin(self, input):
-        self.out = []
+        self._1 = []
+        self._2 = []
+        self.flag = 0
+    def out(self, input):
         count = 0
         if input:
-            for a in self.words:
-                if a.startswith(input):
-                    self.out.append(a)
-                    count += 1
-                if count == 5:
-                    break
-        if count < 5:
-            for n in range (5 - count):
-                self.out.append('')
-        return self.out
-def main(text):
-	words = []
-	with open('database.csv') as cvsfile:
-	    reader = csv.reader(cvsfile)
-	    for line in reader:
-	        words.append(line[1])
-	com = Complete(words)
-	return com.fin(text)
+            if self.flag == 0:
+                self.flag = 1
+                for a in self.words:
+                    if a.startswith(input):
+                        self._1.append(a)
+                        count += 1
+                if count < 10:
+                    for n in range(10-count):
+                        self._1.append('')
+                return self._1[0:10]
+
+            elif self.flag == 1:
+                self.flag = 2
+                self._2 = []
+                for a in self._1:
+                    if a.startswith(input):
+                        self._2.append(a)
+                        count += 1
+                if count < 10:
+                    for n in range (10-count):
+                        self._2.append('')
+                return self._2[0:10]
+
+            elif self.flag == 2:
+                self.flag = 1
+                self._1 = []
+                for a in self._2:
+                    if a.startswith(input):
+                        self._1.append(a)
+                        count += 1
+                if count < 10:
+                    for n in range(10-count):
+                        self._1.append('')
+                return self._1[0:10]
+def main ():
+    with open('data1.txt') as file:
+        words = file.readlines()
+    com = Complete(words)
+    return com
+if __name__ == '__main__':
+    com = main()
+    print(com.out('t'))
+    print(com.out('te'))
+    print(com.out('tee'))
+    print(com.out('teem'))
