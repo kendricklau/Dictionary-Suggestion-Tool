@@ -1,30 +1,40 @@
-from PyQt4 import QtGui #sudo apt-get install python3-pyqt4
-from PyQt4.QtCore import SIGNAL
+from PyQt4 import QtGui, QtCore #sudo apt-get install python3-pyqt4
 import sys
 import gui_designer #Includes all widgets of GUI
-import gui_history_designer #New Window
+import gui_history_designer #Opens new history window
+#import Complete
 import hash
 
 #Designer class with all GUI functions
 class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 	history = []
 	historyindex = 0
-		
+	prevText = ''
+	
 	def __init__(self, parent = None):
 		super(DictionaryApp, self).__init__(parent)
-		self.setupUi(self)
-		self.connect(self.searchBtn, SIGNAL("clicked()"), self.getSearch)	
-		self.pushButton.clicked.connect(self.showHistory)
+		self.setupUi(self)	
+		self.searchBtn.clicked.connect(self.getSearch)
+		self.pushButton.clicked.connect(self.showHistory)	
 		self.window2 = None
 		self.setWindowTitle("ECE368 Dictionary")
 		self.hashtable = hash.add_words('dict.html')
-			
+	
+	def suggestionComp(self, event):
+		text = self.lineEdit.text()
+		if prevText is not text:
+			suggestions = self.fin(text)
+			prevText = text
+			print(suggestions)
+
+				
 	def showHistory(self):
 		if self.window2 is None:
 			self.window2 = HistoryApp()
 		self.window2.show()
 
 	def getSearch(self):
+		print("here2")
 		text = self.lineEdit.text()
 		self.storeHistory(text)
 		self.textBrowser.setText("")
@@ -42,9 +52,18 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 	def storeHistory(self, text):
 		DictionaryApp.history.insert(DictionaryApp.historyindex, text)
 		DictionaryApp.historyindex += 1	
-		print(DictionaryApp.history)
-		
+	
+	def keyPressEvent(self, event):
+		if event.key() == QtCore.Qt.Key_Return:
+			print("here1")
+			self.getSearch
+		elif event.key() is not None:
+			print("here")
+			#self.suggestionComp
+
+				
 class HistoryApp(QtGui.QDialog, gui_history_designer.Ui_Dialog):
+
 	def __init__(self, parent = None):
 		super(HistoryApp, self).__init__(parent)
 		self.setupUi(self)
