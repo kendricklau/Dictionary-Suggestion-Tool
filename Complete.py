@@ -17,10 +17,11 @@ class Complete:
             for n in range (5 - count):
                 self.out.append('')
         return self.out
-words = []
-with open('database.csv') as cvsfile:
-    reader = csv.reader(cvsfile)
-    for line in reader:
-        words.append(line[1][3:])
-com = Complete(words)
-print(com.fin('poo'))
+def main(text):
+	words = []
+	with open('database.csv') as cvsfile:
+	    reader = csv.reader(cvsfile)
+	    for line in reader:
+	        words.append(line[1])
+	com = Complete(words)
+	return com.fin(text)

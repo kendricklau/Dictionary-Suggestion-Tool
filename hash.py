@@ -79,10 +79,7 @@ def remove_tags(defined):
         elif not intag:
             final += c
 	#change
-    if "<er>" in defined:
-        return defined
-    else:
-        return final
+    return final
 
 if __name__ == '__main__':
     hashtable = add_words('dict.html')
