@@ -40,7 +40,8 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		
 	def suggestionComp(self, event):
 		text = self.lineEdit.text()
-		suggestions = Complete.main(text)
+		com = Complete.main()
+		suggestions = com.out(text)
 		self.label_1.setText(suggestions[0])
 		self.label_2.setText(suggestions[1])
 		self.label_3.setText(suggestions[2])
@@ -73,9 +74,11 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		self.textBrowser.setText(deffull)
 	
 	def storeHistory(self, text):
-		DictionaryApp.history.insert(DictionaryApp.historyindex, text)
-		DictionaryApp.historyindex += 1	
-	
+		if text is not None:
+			DictionaryApp.history.insert(DictionaryApp.historyindex, text)
+			DictionaryApp.historyindex += 1	
+		elif text is DictionaryApp.history[DictionaryApp.historyindex - 1]:
+			return
 	def keyPressEvent(self, event):			
 		if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Return:
 			self.getSearch()
