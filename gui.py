@@ -21,22 +21,37 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		self.window2 = None
 		self.setWindowTitle("ECE368 Dictionary")
 		self.hashtable = hash.add_words('dict.html')		
-		self.label_1 = NewLabel(self.frame)
-		self.label_2 = NewLabel(self.frame)
-		self.label_3 = NewLabel(self.frame)
-		self.label_4 = NewLabel(self.frame)
-		self.label_5 = NewLabel(self.frame)
-		self.horizontalLayout_3.addWidget(self.label_1)
-		self.horizontalLayout_3.addWidget(self.label_2)
-		self.horizontalLayout_3.addWidget(self.label_3)
-		self.horizontalLayout_3.addWidget(self.label_4)
-		self.horizontalLayout_3.addWidget(self.label_5)
 		self.suggestions = [""] * 5
+		self.label_1 =NewLabel(self.frame)
+		self.label_2 =NewLabel(self.frame)
+		self.label_3 =NewLabel(self.frame)
+		self.label_4 =NewLabel(self.frame)
+		self.label_5 =NewLabel(self.frame)
+		self.label_6 =NewLabel(self.frame)
+		self.label_7 =NewLabel(self.frame)
+		self.label_8 =NewLabel(self.frame)
+		self.label_9 =NewLabel(self.frame)
+		self.label_10 =NewLabel(self.frame)
 		QtCore.QObject.connect(self.label_1, QtCore.SIGNAL('clicked()'), lambda foo = 0: self.suggestionSearch(foo))
 		QtCore.QObject.connect(self.label_2, QtCore.SIGNAL('clicked()'), lambda foo = 1: self.suggestionSearch(foo))	
 		QtCore.QObject.connect(self.label_3, QtCore.SIGNAL('clicked()'), lambda foo = 2: self.suggestionSearch(foo))	
 		QtCore.QObject.connect(self.label_4, QtCore.SIGNAL('clicked()'), lambda foo = 3: self.suggestionSearch(foo))	
 		QtCore.QObject.connect(self.label_5, QtCore.SIGNAL('clicked()'), lambda foo = 4: self.suggestionSearch(foo))	
+		QtCore.QObject.connect(self.label_6, QtCore.SIGNAL('clicked()'), lambda foo = 5: self.suggestionSearch(foo))
+		QtCore.QObject.connect(self.label_7, QtCore.SIGNAL('clicked()'), lambda foo = 6: self.suggestionSearch(foo))	
+		QtCore.QObject.connect(self.label_8, QtCore.SIGNAL('clicked()'), lambda foo = 7: self.suggestionSearch(foo))	
+		QtCore.QObject.connect(self.label_9, QtCore.SIGNAL('clicked()'), lambda foo = 8: self.suggestionSearch(foo))	
+		QtCore.QObject.connect(self.label_10, QtCore.SIGNAL('clicked()'), lambda foo = 9: self.suggestionSearch(foo))	
+		self.gridLayout.addWidget(self.label_5, 0, 5, 1, 1)
+		self.gridLayout.addWidget(self.label_3, 0, 2, 1, 1)
+		self.gridLayout.addWidget(self.label_4, 0, 3, 1, 1)
+		self.gridLayout.addWidget(self.label_1, 0, 0, 1, 1)
+		self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
+		self.gridLayout.addWidget(self.label_6, 1, 0, 1, 1)
+		self.gridLayout.addWidget(self.label_7, 1, 1, 1, 1)
+		self.gridLayout.addWidget(self.label_8, 1, 2, 1, 1)
+		self.gridLayout.addWidget(self.label_9, 1, 3, 1, 1)
+		self.gridLayout.addWidget(self.label_10, 1, 5, 1, 1)
 		
 	def suggestionComp(self, event):
 		text = self.lineEdit.text()
@@ -47,6 +62,11 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		self.label_3.setText(suggestions[2])
 		self.label_4.setText(suggestions[3])	
 		self.label_5.setText(suggestions[4])
+		self.label_6.setText(suggestions[5])
+		self.label_7.setText(suggestions[6])
+		self.label_8.setText(suggestions[7])
+		self.label_9.setText(suggestions[8])	
+		self.label_10.setText(suggestions[9])
 		self.suggestions = suggestions
 				
 	def suggestionSearch(self, val):
@@ -74,11 +94,18 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		self.textBrowser.setText(deffull)
 	
 	def storeHistory(self, text):
-		if text is not None:
-			DictionaryApp.history.insert(DictionaryApp.historyindex, text)
-			DictionaryApp.historyindex += 1	
-		elif text is DictionaryApp.history[DictionaryApp.historyindex - 1]:
-			return
+		if text is not '':
+			if self.historyindex is 0:
+				self.history.insert(self.historyindex, text)
+				self.historyindex += 1
+			elif text is self.history[self.historyindex - 1]:
+				print("here1")
+			else:
+				print(self.history[self.historyindex - 1])
+				print(text)
+				self.history.insert(self.historyindex, text)
+				self.historyindex += 1	
+				
 	def keyPressEvent(self, event):			
 		if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Return:
 			self.getSearch()
@@ -92,6 +119,7 @@ class HistoryApp(QtGui.QDialog, gui_history_designer.Ui_Dialog):
 		self.setWindowTitle("Search History")
 		self.displayHistory()
 		self.pushButton.clicked.connect(self.close)	
+
 	def displayHistory(self):
 		histfull = '\n'.join(DictionaryApp.history) + '\n'
 		self.textBrowser.setText(histfull)
