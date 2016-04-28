@@ -11,7 +11,7 @@ class Complete:
                 self.flag = 1
                 for a in self.words:
                     if a.startswith(input):
-                        self._1.append(a)
+                        self._1.append(a[:-1])
                         count += 1
                 if count < 10:
                     for n in range(10-count):
@@ -23,7 +23,7 @@ class Complete:
                 self._2 = []
                 for a in self._1:
                     if a.startswith(input):
-                        self._2.append(a)
+                        self._2.append(a[:-1])
                         count += 1
                 if count < 10:
                     for n in range (10-count):
@@ -35,7 +35,7 @@ class Complete:
                 self._1 = []
                 for a in self._2:
                     if a.startswith(input):
-                        self._1.append(a)
+                        self._1.append(a[:-1])
                         count += 1
                 if count < 10:
                     for n in range(10-count):

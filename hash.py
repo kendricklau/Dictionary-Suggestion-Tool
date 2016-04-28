@@ -42,7 +42,7 @@ class Hashtable:
 
 # Adds all the words in file to a hash and returns it
 # Currently ignores words that aren't 100% letters
-def add_words(file):
+def add_words_html(file):
     defnext = False # If true it needs to check for def next
     hashtable = Hashtable(500000)
     txtfile = open(file, 'r')
@@ -67,6 +67,21 @@ def add_words(file):
 
     return hashtable
 
+def add_words(file):
+    hashtable = Hashtable(500000)
+    with open(file, 'r') as txtfile:
+        word = txtfile.readline()
+        word = word[1:]
+        defn = txtfile.readline()
+        for line in txtfile:
+            if line[0] == '*':
+                hashtable.install(word, defn)
+                word = line[1:]
+            else:
+                defn = line
+
+    return hashtable
+
 # Removes any html tags but not the best yet
 def remove_tags(defined):
     final = ""
@@ -82,4 +97,5 @@ def remove_tags(defined):
     return final
 
 if __name__ == '__main__':
-    hashtable = add_words('dict.html')
+    hashtable = add_words('text.txt')
+    print(hashtable.lookup("yea"))
