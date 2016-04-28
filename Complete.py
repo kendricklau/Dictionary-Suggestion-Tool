@@ -1,3 +1,4 @@
+import readexcel
 class Complete:
     def __init__(self, words):
         self.words = words
@@ -26,6 +27,13 @@ class Complete:
                         self._2.append(a[:-1])
                         count += 1
                 if count < 10:
+                    new = readexcel.correct(input)
+                    for pre in new:
+                        for a in self.words:
+                            if a.startswith(pre):
+                                self._2.append(a)
+                                count += 1
+                if count < 10:
                     for n in range (10-count):
                         self._2.append('')
                 return self._2[0:10]
@@ -37,6 +45,13 @@ class Complete:
                     if a.startswith(input):
                         self._1.append(a[:-1])
                         count += 1
+                if count < 10:
+                    new = readexcel.correct(input)
+                    for pre in new:
+                        for a in self.words:
+                            if a.startswith(pre):
+                                self._1.append(a)
+                                count += 1
                 if count < 10:
                     for n in range(10-count):
                         self._1.append('')
