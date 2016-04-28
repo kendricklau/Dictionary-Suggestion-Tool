@@ -31,7 +31,7 @@ class Complete:
                     for pre in new:
                         for a in self.words:
                             if a.startswith(pre):
-                                self._2.append(a)
+                                self._2.append(a[:-1])
                                 count += 1
                 if count < 10:
                     for n in range (10-count):
@@ -50,7 +50,7 @@ class Complete:
                     for pre in new:
                         for a in self.words:
                             if a.startswith(pre):
-                                self._1.append(a)
+                                self._1.append(a[:-1])
                                 count += 1
                 if count < 10:
                     for n in range(10-count):
@@ -63,7 +63,19 @@ def main ():
     return com
 if __name__ == '__main__':
     com = main()
-    print(com.out('t'))
-    print(com.out('te'))
-    print(com.out('tee'))
-    print(com.out('teem'))
+
+    (com.out('t'))
+    print(com._1)
+    #print(com._2)
+    (com.out('te'))
+    #print(com._1)
+    print(com._2)
+    (com.out('ter'))
+    print(com._1)
+    #print(com._2)
+    (com.out('tera'))
+    #print(com._1)
+    print(com._2)
+    (com.out('teraf'))
+    print(com._1)
+    #print(com._2)
