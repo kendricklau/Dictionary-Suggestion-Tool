@@ -55,22 +55,85 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		
 	def suggestionComp(self, event):
 		text = self.lineEdit.text()
-		com = Complete.main()
-		suggestions = com.out(text)
+		#Use Complete_old.py to generate history->suggestions
+		newHistory = list(reversed(self.history))
+		newHistory += [''] * (3 - len(newHistory))
+		com1 = Complete_old.Complete(newHistory[0:3])	
+		histSuggestions = com1.fin(text)
+		histSuggestions = ['(' + s + ')' for s in histSuggestions]
+		histSuggestions = [n for n in histSuggestions if n != '()']
+		#Use Complete.py to generate suggestions->suggestions
+		com2 = Complete.main()
+		suggSuggestions = com2.out(text)
+		#Add the lists together
+		if text is '':	
+			newHistory = ['(' + s + ')' for s in newHistory]
+			newHistory = [n for n in newHistory if n != '()']
+			newHistory += [''] * (3 - len(newHistory))	
+			suggestions = newHistory[0:3] + [''] * 7	
+		else:
+			suggestions = histSuggestions + suggSuggestions
+			suggestions = [i for i in suggestions if i != '']
+			suggestions += [''] * (10-len(suggestions))
+			
+		#Sets the suggestions
 		self.label_1.setText(suggestions[0])
+		if suggestions[0] == "":
+			self.label_1.setEnabled(False)
+		else:
+			self.label_1.setEnabled(True)
 		self.label_2.setText(suggestions[1])
+		if suggestions[1] == "":
+			self.label_2.setEnabled(False)
+		else:
+			self.label_2.setEnabled(True)
 		self.label_3.setText(suggestions[2])
+		if suggestions[2] == "":
+			self.label_3.setEnabled(False)
+		else:
+			self.label_3.setEnabled(True)
 		self.label_4.setText(suggestions[3])	
+		if suggestions[3] == "":
+			self.label_4.setEnabled(False)
+		else:
+			self.label_4.setEnabled(True)
 		self.label_5.setText(suggestions[4])
+		if suggestions[4] == "":
+			self.label_5.setEnabled(False)
+		else:
+			self.label_5.setEnabled(True)
 		self.label_6.setText(suggestions[5])
+		if suggestions[5] == "":
+			self.label_6.setEnabled(False)
+		else:
+			self.label_6.setEnabled(True)
 		self.label_7.setText(suggestions[6])
+		if suggestions[6] == "":
+			self.label_7.setEnabled(False)
+		else:
+			self.label_7.setEnabled(True)
 		self.label_8.setText(suggestions[7])
+		if suggestions[7] == "":
+			self.label_8.setEnabled(False)
+		else:
+			self.label_8.setEnabled(True)
 		self.label_9.setText(suggestions[8])	
+		if suggestions[8] == "":
+			self.label_9.setEnabled(False)
+		else:
+			self.label_9.setEnabled(True)
 		self.label_10.setText(suggestions[9])
+		if suggestions[9] == "":
+			self.label_10.setEnabled(False)
+		else:
+			self.label_10.setEnabled(True)
 		self.suggestions = suggestions
 				
-	def suggestionSearch(self, val):
-		self.lineEdit.setText(self.suggestions[val])
+	def suggestionSearch(self, val): # fix here
+		historyword = self.suggestions[val]
+		if '(' in historyword:
+			historyword = historyword.replace('(', '').replace(')', '')
+		self.lineEdit.setText(historyword)
 		self.getSearch()
 
 	def showHistory(self):
@@ -94,15 +157,14 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		self.textBrowser.setText(deffull)
 	
 	def storeHistory(self, text):
+		text = text.rstrip()
 		if text is not '':
 			if self.historyindex is 0:
 				self.history.insert(self.historyindex, text)
 				self.historyindex += 1
-			elif text is self.history[self.historyindex - 1]:
-				print("here1")
+			elif text == self.history[self.historyindex - 1]:
+				return	
 			else:
-				print(self.history[self.historyindex - 1])
-				print(text)
 				self.history.insert(self.historyindex, text)
 				self.historyindex += 1	
 				
@@ -121,7 +183,9 @@ class HistoryApp(QtGui.QDialog, gui_history_designer.Ui_Dialog):
 		self.pushButton.clicked.connect(self.close)	
 
 	def displayHistory(self):
-		histfull = '\n'.join(DictionaryApp.history) + '\n'
+		dispHistory = list(reversed(DictionaryApp.history))
+		dispHistory = filter(None, dispHistory)
+		histfull = '\n'.join(dispHistory) + '\n'
 		self.textBrowser.setText(histfull)
 
 class NewLabel(QtGui.QLabel):
