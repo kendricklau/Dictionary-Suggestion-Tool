@@ -42,7 +42,7 @@ class Complete:
                         self._1.append('')
                 return self._1[0:10]
 def main ():
-    with open('data1.txt') as file:
+    with open('data.txt') as file:
         words = file.readlines()
     com = Complete(words)
     return com
