@@ -17,7 +17,9 @@ def words(text):
 #    return model
 
 #NWORDS = train(words(file('data.txt').read()))
-NWORDS = words(file('data.txt').read())
+with open('data.txt') as txtfile:
+    NWORDS = words(txtfile.read())
+#NWORDS = words(file('data.txt').read())
 
 #alphabet = 'abcdefghijklmnopqrstuvwxyz'
 from string import ascii_lowercase as alphabet
