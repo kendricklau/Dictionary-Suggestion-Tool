@@ -79,6 +79,7 @@ def correct(word):
     #return popularity
 
 if __name__ == '__main__':
-    text = raw_input('Enter word here: ')
+    text = input('Enter word here: ')
+    #text = raw_input('Enter word here: ')
     best = correct(text)
     print(best)
