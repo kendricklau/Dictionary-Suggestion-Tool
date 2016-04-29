@@ -15,13 +15,6 @@ class Complete:
                         self._1.append(a[:-1])
                         count += 1
                 if count < 10:
-                    new = readexcel.correct(input)
-                    for pre in new:
-                        for a in self.words:
-                            if a.startswith(pre):
-                                self._1.append(a[:-1])
-                                count += 1
-                if count < 10:
                     for n in range(10-count):
                         self._1.append('')
                 return self._1[0:10]
@@ -83,6 +76,6 @@ if __name__ == '__main__':
     (com.out('tera'))
     #print(com._1)
     print(com._2)
-    (com.out('teraf'))
+    (com.out('teras'))
     print(com._1)
     #print(com._2)
