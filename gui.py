@@ -65,12 +65,12 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		#Use Complete_old.py to generate history->suggestions
 		newHistory = list(reversed(self.history))
 		newHistory += [''] * (3 - len(newHistory))
-		com1 = Complete_old.Complete(newHistory[0:3])	
-		histSuggestions = com1.fin(self.text)
+		com1 = Complete_old.Complete(newHistory)	
+		histSuggestions = com1.fin(self.text.lower())
 		histSuggestions = ['(' + s + ')' for s in histSuggestions]
 		histSuggestions = [n for n in histSuggestions if n != '()']
 		#Use Complete.py to generate suggestions->suggestions
-		suggSuggestions = self.com2.out(self.text)
+		suggSuggestions = self.com2.out(self.text.lower())
 		#Add the lists together
 		if self.text is '':	
 			newHistory = ['(' + s + ')' for s in newHistory]
