@@ -3,8 +3,8 @@ import collections
 
 #checks input text for regular expression
 #returns altered text with all lowercase letters
-def words(text):
-    return re.findall('[a-z]+', text.lower())
+#def words(text):
+ #   return re.findall('[a-z]+', text.lower())
     #stuff = re.findall('[a-z]+', text.lower())
     #return [(stuff[l], l) for l in range(len(stuff))]
     #return re.findall('[a-z]+', text.lower())
@@ -18,7 +18,7 @@ def words(text):
 
 #NWORDS = train(words(file('data.txt').read()))
 with open('data.txt') as txtfile:
-    NWORDS = words(txtfile.read())
+    NWORDS = txtfile.readlines()
 #NWORDS = words(file('data.txt').read())
 
 #alphabet = 'abcdefghijklmnopqrstuvwxyz'
