@@ -18,8 +18,7 @@ import collections
 
 #NWORDS = train(words(file('data.txt').read()))
 with open('data.txt') as txtfile:
-    for n in range(0,19339):
-        NWORDS1 = txtfile.readlines()
+    NWORDS1 = txtfile.readlines()
 NWORDS = NWORDS1[0:19339]
 # i = 19340
 # while i < 85488:
