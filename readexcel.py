@@ -18,7 +18,8 @@ import collections
 
 #NWORDS = train(words(file('data.txt').read()))
 with open('data.txt') as txtfile:
-    NWORDS = txtfile.readlines()
+    NWORDS1 = txtfile.readlines()
+NWORDS = NWORDS1[0:50000]
 #NWORDS = words(file('data.txt').read())
 
 #alphabet = 'abcdefghijklmnopqrstuvwxyz'
