@@ -31,7 +31,7 @@ class Complete:
                     for pre in new:
                         for a in self.words:
                             if a.startswith(pre):
-                                if a not in self._2:
+                                if a[:-1] not in self._2:
                                     self._2.append(a[:-1])
                                 count += 1
                 if count < 10:
@@ -51,7 +51,7 @@ class Complete:
                     for pre in new:
                         for a in self.words:
                             if a.startswith(pre):
-                                if a not in self._1:
+                                if a[:-1] not in self._1:
                                     self._1.append(a[:-1])
                                 count += 1
                 if count < 10:
@@ -72,14 +72,14 @@ if __name__ == '__main__':
     (com.out('te'))
     #print(com._1)
     print(com._2)
-    (com.out('ter'))
+    (com.out('tes'))
     print(com._1)
     #print(com._2)
-    (com.out('tera'))
+    (com.out('test'))
     #print(com._1)
     print(com._2)
 
-    (com.out('terax'))
+    (com.out('testi'))
     print(com._1)
-    (com.out('teraxo'))
+    (com.out('testin'))
     print(com._2)
