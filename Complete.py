@@ -15,6 +15,14 @@ class Complete:
                         self._1.append(a[:-1])
                         count += 1
                 if count < 10:
+                    new = readexcel.correct(input)
+                    for pre in new:
+                        for a in self.words:
+                            if a.startswith(pre):
+                                if a[:-1] not in self._1:
+                                    self._1.append(a[:-1])
+                                count += 1
+                if count < 10:
                     for n in range(10-count):
                         self._1.append('')
                 return self._1[0:10]
@@ -66,20 +74,20 @@ def main ():
 if __name__ == '__main__':
 
     com = main()
-    (com.out('o'))
+    (com.out('t'))
     print(com._1)
     #print(com._2)
-    (com.out('op'))
+    (com.out('te'))
     #print(com._1)
     print(com._2)
-    (com.out('ope'))
+    (com.out('ter'))
     print(com._1)
     #print(com._2)
-    (com.out('open'))
+    (com.out('tera'))
     #print(com._1)
     print(com._2)
 
-    (com.out('openn'))
+    (com.out('terax'))
     print(com._1)
     #(com.out('testun'))
     #print(com._2)

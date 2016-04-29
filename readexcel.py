@@ -18,7 +18,8 @@ import collections
 
 #NWORDS = train(words(file('data.txt').read()))
 with open('data.txt') as txtfile:
-    NWORDS1 = txtfile.readlines()
+    for n in range(0,19339):
+        NWORDS1 = txtfile.readlines()
 NWORDS = NWORDS1[0:19339]
 # i = 19340
 # while i < 85488:
@@ -29,7 +30,6 @@ NWORDS = NWORDS1[0:19339]
 #alphabet = 'abcdefghijklmnopqrstuvwxyz'
 from string import ascii_lowercase as alphabet
 keyboard = ["qwertyuiop","asdfghjkl","zxcvbnm"]
-
 #performs various operations on input in order to try to correct word
 def edits1(word):
    splits     = [(word[:i], word[i:]) for i in range(len(word) + 1)]
