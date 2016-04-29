@@ -18,12 +18,12 @@ import collections
 
 #NWORDS = train(words(file('data.txt').read()))
 with open('data.txt') as txtfile:
-    NWORDS1 = txtfile.readlines()
-NWORDS = NWORDS1[0:19339]
-i = 19340
-while i < 85488:
-    NWORDS.append(NWORDS1[i])
-    i += 2
+    NWORDS = txtfile.readlines()
+# NWORDS = NWORDS1[0:19339]
+# i = 19340
+# while i < 85488:
+#     NWORDS.append(NWORDS1[i])
+#     i += 2
 #NWORDS = words(file('data.txt').read())
 
 #alphabet = 'abcdefghijklmnopqrstuvwxyz'
