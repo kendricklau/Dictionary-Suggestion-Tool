@@ -24,7 +24,7 @@ class Complete:
                 self._2 = []
                 for a in self._1:
                     if a.startswith(input):
-                        self._2.append(a[:-1])
+                        self._2.append(a)
                         count += 1
                 if count < 10:
                     new = readexcel.correct(input)
@@ -43,7 +43,7 @@ class Complete:
                 self._1 = []
                 for a in self._2:
                     if a.startswith(input):
-                        self._1.append(a[:-1])
+                        self._1.append(a)
                         count += 1
                 if count < 10:
                     new = readexcel.correct(input)
@@ -62,8 +62,8 @@ def main ():
     com = Complete(words)
     return com
 if __name__ == '__main__':
+    #import time
     com = main()
-
     (com.out('t'))
     print(com._1)
     #print(com._2)
@@ -76,6 +76,8 @@ if __name__ == '__main__':
     (com.out('tera'))
     #print(com._1)
     print(com._2)
+    #s = time.clock()
     (com.out('teras'))
+    #print(time.clock() - s)
     print(com._1)
     #print(com._2)
