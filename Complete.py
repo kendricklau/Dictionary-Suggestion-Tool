@@ -31,7 +31,8 @@ class Complete:
                     for pre in new:
                         for a in self.words:
                             if a.startswith(pre):
-                                self._2.append(a[:-1])
+                                if a not in self._2:
+                                    self._2.append(a[:-1])
                                 count += 1
                 if count < 10:
                     for n in range (10-count):
@@ -50,7 +51,8 @@ class Complete:
                     for pre in new:
                         for a in self.words:
                             if a.startswith(pre):
-                                self._1.append(a[:-1])
+                                if a not in self._1:
+                                    self._1.append(a[:-1])
                                 count += 1
                 if count < 10:
                     for n in range(10-count):
