@@ -30,18 +30,19 @@ class Complete:
             elif self.flag == 1:
                 self.flag = 2
                 self._2 = []
-                for a in self._1:
-                    if a.startswith(input):
-                        self._2.append(a)
-                        count += 1
-                if count < 10:
-                    new = readexcel.correct(input)
-                    for pre in new:
-                        for a in self.words:
-                            if a.startswith(pre):
-                                if a[:-1] not in self._2:
-                                    self._2.append(a[:-1])
-                                count += 1
+                if self._1[0] != '':
+                    for a in self._1:
+                        if a.startswith(input):
+                            self._2.append(a)
+                            count += 1
+                    if count < 10:
+                        new = readexcel.correct(input)
+                        for pre in new:
+                            for a in self.words:
+                                if a.startswith(pre):
+                                    if a[:-1] not in self._2:
+                                        self._2.append(a[:-1])
+                                    count += 1
                 if count < 10:
                     for n in range (10-count):
                         self._2.append('')
@@ -50,18 +51,19 @@ class Complete:
             elif self.flag == 2:
                 self.flag = 1
                 self._1 = []
-                for a in self._2:
-                    if a.startswith(input):
-                        self._1.append(a)
-                        count += 1
-                if count < 10:
-                    new = readexcel.correct(input)
-                    for pre in new:
-                        for a in self.words:
-                            if a.startswith(pre):
-                                if a[:-1] not in self._1:
-                                    self._1.append(a[:-1])
-                                count += 1
+                if self._2[0] != '':
+                    for a in self._2:
+                        if a.startswith(input):
+                            self._1.append(a)
+                            count += 1
+                    if count < 10:
+                        new = readexcel.correct(input)
+                        for pre in new:
+                            for a in self.words:
+                                if a.startswith(pre):
+                                    if a[:-1] not in self._1:
+                                        self._1.append(a[:-1])
+                                    count += 1
                 if count < 10:
                     for n in range(10-count):
                         self._1.append('')
