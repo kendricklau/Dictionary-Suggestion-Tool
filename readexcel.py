@@ -24,7 +24,7 @@ NWORDS = NWORDS1[0:19339]
 i = 19340
 while i < 85488:
     NWORDS.append(NWORDS1[i])
-    i += 2
+    i += 4
 #NWORDS = words(file('data.txt').read())
 
 #alphabet = 'abcdefghijklmnopqrstuvwxyz'
