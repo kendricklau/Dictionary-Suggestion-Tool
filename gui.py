@@ -11,7 +11,9 @@ import hash
 class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 	history = []
 	historyindex = 0
-	
+	lenPrev = 0
+	text = ''
+
 	def __init__(self, parent = None):
 		super(DictionaryApp, self).__init__(parent)
 		self.setupUi(self)	
@@ -54,19 +56,23 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 		self.gridLayout.addWidget(self.label_10, 1, 5, 1, 1)
 		
 	def suggestionComp(self, event):
-		text = self.lineEdit.text()
+		lenPrev = len(self.text)
+		self.text = self.lineEdit.text()	
+		if lenPrev is 0 and len(self.text) is 1:
+			self.com2 = Complete.main()
+		elif lenPrev > len(self.text):
+			self.com2 = Complete.main()
 		#Use Complete_old.py to generate history->suggestions
 		newHistory = list(reversed(self.history))
 		newHistory += [''] * (3 - len(newHistory))
 		com1 = Complete_old.Complete(newHistory[0:3])	
-		histSuggestions = com1.fin(text)
+		histSuggestions = com1.fin(self.text)
 		histSuggestions = ['(' + s + ')' for s in histSuggestions]
 		histSuggestions = [n for n in histSuggestions if n != '()']
 		#Use Complete.py to generate suggestions->suggestions
-		com2 = Complete.main()
-		suggSuggestions = com2.out(text)
+		suggSuggestions = self.com2.out(self.text)
 		#Add the lists together
-		if text is '':	
+		if self.text is '':	
 			newHistory = ['(' + s + ')' for s in newHistory]
 			newHistory = [n for n in newHistory if n != '()']
 			newHistory += [''] * (3 - len(newHistory))	
@@ -171,6 +177,7 @@ class DictionaryApp(QtGui.QMainWindow, gui_designer.Ui_MainWindow):
 	def keyPressEvent(self, event):			
 		if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Return:
 			self.getSearch()
+			
 
 				
 class HistoryApp(QtGui.QDialog, gui_history_designer.Ui_Dialog):
