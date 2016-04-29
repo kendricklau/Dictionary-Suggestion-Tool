@@ -14,14 +14,15 @@ class Complete:
                     if a.startswith(input):
                         self._1.append(a[:-1])
                         count += 1
-                if count < 10:
-                    new = readexcel.correct(input)
-                    for pre in new:
-                        for a in self.words:
-                            if a.startswith(pre):
-                                if a[:-1] not in self._1:
-                                    self._1.append(a[:-1])
-                                count += 1
+                if len(input) <= 15:
+                    if count < 10:
+                        new = readexcel.correct(input)
+                        for pre in new:
+                            for a in self.words:
+                                if a.startswith(pre):
+                                    if a[:-1] not in self._1:
+                                        self._1.append(a[:-1])
+                                    count += 1
                 if count < 10:
                     for n in range(10-count):
                         self._1.append('')
@@ -35,14 +36,15 @@ class Complete:
                         if a.startswith(input):
                             self._2.append(a)
                             count += 1
-                    if count < 10:
-                        new = readexcel.correct(input)
-                        for pre in new:
-                            for a in self.words:
-                                if a.startswith(pre):
-                                    if a[:-1] not in self._2:
-                                        self._2.append(a[:-1])
-                                    count += 1
+                    if len(input) <= 15:
+                        if count < 10:
+                            new = readexcel.correct(input)
+                            for pre in new:
+                                for a in self.words:
+                                    if a.startswith(pre):
+                                        if a[:-1] not in self._2:
+                                            self._2.append(a[:-1])
+                                        count += 1
                 if count < 10:
                     for n in range (10-count):
                         self._2.append('')
@@ -56,14 +58,15 @@ class Complete:
                         if a.startswith(input):
                             self._1.append(a)
                             count += 1
-                    if count < 10:
-                        new = readexcel.correct(input)
-                        for pre in new:
-                            for a in self.words:
-                                if a.startswith(pre):
-                                    if a[:-1] not in self._1:
-                                        self._1.append(a[:-1])
-                                    count += 1
+                    if len(input) <= 15:
+                        if count < 10:
+                            new = readexcel.correct(input)
+                            for pre in new:
+                                for a in self.words:
+                                    if a.startswith(pre):
+                                        if a[:-1] not in self._1:
+                                            self._1.append(a[:-1])
+                                        count += 1
                 if count < 10:
                     for n in range(10-count):
                         self._1.append('')
