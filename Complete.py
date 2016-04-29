@@ -62,7 +62,7 @@ def main ():
     com = Complete(words)
     return com
 if __name__ == '__main__':
-    #import time
+
     com = main()
     (com.out('t'))
     print(com._1)
@@ -76,8 +76,8 @@ if __name__ == '__main__':
     (com.out('tera'))
     #print(com._1)
     print(com._2)
-    #s = time.clock()
-    (com.out('teras'))
-    #print(time.clock() - s)
+
+    (com.out('terax'))
     print(com._1)
-    #print(com._2)
+    (com.out('teraxo'))
+    print(com._2)
